@@ -309,7 +309,7 @@ namespace dwa_local_planner {
     std::vector<base_local_planner::Trajectory> all_explored;
     scored_sampling_planner_.findBestTrajectory(result_traj_, &all_explored);
 
-    if(publish_traj_pc_)
+    /*if(publish_traj_pc_)
     {
         base_local_planner::MapGridCostPoint pt;
         traj_cloud_.points.clear();
@@ -336,7 +336,7 @@ namespace dwa_local_planner {
             }
         }
         traj_cloud_pub_.publish(traj_cloud_);
-    }
+    }*/
 
     // verbose publishing of point clouds
     if (publish_cost_grid_pc_) {

@@ -324,7 +324,7 @@ namespace navfn {
       }
     }
 
-    if (visualize_potential_){
+    /*if (visualize_potential_){
       //publish potential array
       pcl::PointCloud<PotarrPoint> pot_area;
       pot_area.header.frame_id = global_frame;
@@ -350,7 +350,7 @@ namespace navfn {
         }
       }
       potarr_pub_.publish(pot_area);
-    }
+    }*/
 
     //publish the plan for visualization purposes
     publishPlan(plan, 0.0, 1.0, 0.0, 0.0);

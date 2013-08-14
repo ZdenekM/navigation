@@ -38,7 +38,7 @@
 #include <base_local_planner/map_grid.h>
 #include <costmap_2d/costmap_2d.h>
 #include <base_local_planner/map_grid_cost_point.h>
-#include <pcl_ros/publisher.h>
+//#include <pcl_ros/publisher.h>
 
 namespace base_local_planner {
     class MapGridVisualizer {
@@ -71,8 +71,8 @@ namespace base_local_planner {
             std::string frame_id_; ///< @brief The frame to assign to the output PointCloud
             boost::function<bool (int cx, int cy, float &path_cost, float &goal_cost, float &occ_cost, float &total_cost)> cost_function_; ///< @brief The function to be used to generate the cost components for the output PointCloud
             ros::NodeHandle ns_nh_;
-            pcl::PointCloud<MapGridCostPoint> cost_cloud_;
-            pcl_ros::Publisher<MapGridCostPoint> pub_;
+            //pcl::PointCloud<MapGridCostPoint> cost_cloud_;
+            //pcl_ros::Publisher<MapGridCostPoint> pub_;
     };
 };
 

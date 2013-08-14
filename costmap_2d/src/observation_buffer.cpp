@@ -38,8 +38,8 @@
 
 #include <pcl/point_types.h>
 #include <pcl_ros/transforms.h>
-#include <pcl/conversions.h>
-#include <pcl/PCLPointCloud2.h>
+//#include <pcl/conversions.h>
+//#include <pcl/PCLPointCloud2.h>
 
 #include <pcl_conversions/pcl_conversions.h>
 
@@ -113,12 +113,12 @@ void ObservationBuffer::bufferCloud(const sensor_msgs::PointCloud2& cloud)
 {
   try
   {
-    pcl::PCLPointCloud2 pcl_pc2;
+    /*pcl::PCLPointCloud2 pcl_pc2;
     pcl_conversions::toPCL(cloud, pcl_pc2);
     // Actually convert the PointCloud2 message into a type we can reason about
     pcl::PointCloud < pcl::PointXYZ > pcl_cloud;
     pcl::fromPCLPointCloud2(pcl_pc2, pcl_cloud);
-    bufferCloud (pcl_cloud);
+    bufferCloud (pcl_cloud);*/
   }
   catch (pcl::PCLException& ex)
   {

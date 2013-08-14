@@ -34,7 +34,7 @@
 #ifndef MAP_GRID_COST_POINT_H_
 #define MAP_GRID_COST_POINT_H_
 
-#include <pcl/register_point_struct.h>
+//#include <pcl/register_point_struct.h>
 
 namespace base_local_planner {
     struct MapGridCostPoint {
@@ -48,7 +48,7 @@ namespace base_local_planner {
     };
 }
 
-POINT_CLOUD_REGISTER_POINT_STRUCT(
+/*POINT_CLOUD_REGISTER_POINT_STRUCT(
         base_local_planner::MapGridCostPoint,
         (float, x, x)
         (float, y, y)
@@ -56,5 +56,5 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(
         (float, path_cost, path_cost)
         (float, goal_cost, goal_cost)
         (float, occ_cost, occ_cost)
-        (float, total_cost, total_cost));
+        (float, total_cost, total_cost));*/
 #endif

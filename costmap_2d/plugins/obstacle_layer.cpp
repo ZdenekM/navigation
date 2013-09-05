@@ -457,11 +457,6 @@ void ObstacleLayer::raytraceFreespace(const Observation& clearing_observation, d
     if (!worldToMap(wx, wy, x1, y1))
       continue;
 
-    *min_x = std::min(wx, *min_x);
-    *min_y = std::min(wy, *min_y);
-    *max_x = std::max(wx, *max_x);
-    *max_y = std::max(wy, *max_y);
-
 
     // materna ------------------------------------------------------------
     unsigned int range_min = cellDistance(2.0);
@@ -482,6 +477,8 @@ void ObstacleLayer::raytraceFreespace(const Observation& clearing_observation, d
     MarkCell marker(costmap_, FREE_SPACE);
     //and finally... we can execute our trace to clear obstacles along that line
     raytraceLine(marker, x00, y00, x1, y1, cell_raytrace_range);
+
+    updateRaytraceBounds(ox, oy, wx, wy, clearing_observation.raytrace_range_, min_x, min_y, max_x, max_y);
   }
 }
 

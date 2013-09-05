@@ -462,10 +462,26 @@ void ObstacleLayer::raytraceFreespace(const Observation& clearing_observation, d
     *max_x = std::max(wx, *max_x);
     *max_y = std::max(wy, *max_y);
 
+
+    // materna ------------------------------------------------------------
+    unsigned int range_min = cellDistance(2.0);
+
+    ROS_INFO_ONCE("EXP: Range min %u (cell dist).", range_min);
+
+    unsigned int x00,y00;
+
+    if (x1 > x0) x00 = x0 + range_min;
+    else x00 = x0 - range_min;
+
+    if (y1 > y0) y00 = y0 + range_min;
+    else y00 = y0 - range_min;
+    // --------------------------------------------------------------------
+
     unsigned int cell_raytrace_range = cellDistance(clearing_observation.raytrace_range_);
+
     MarkCell marker(costmap_, FREE_SPACE);
     //and finally... we can execute our trace to clear obstacles along that line
-    raytraceLine(marker, x0, y0, x1, y1, cell_raytrace_range);
+    raytraceLine(marker, x00, y00, x1, y1, cell_raytrace_range);
   }
 }
 

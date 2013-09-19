@@ -166,6 +166,8 @@ protected:
 
   FootprintLayer footprint_layer_; ///< @brief clears the footprint in this obstacle layer.
 
+  double range_min_;
+
 private:
   void reconfigureCB(costmap_2d::ObstaclePluginConfig &config, uint32_t level);
 };

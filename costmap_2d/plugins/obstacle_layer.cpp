@@ -20,6 +20,8 @@ void ObstacleLayer::onInitialize()
   rolling_window_ = layered_costmap_->isRolling();
   default_value_ = NO_INFORMATION;
 
+  range_min_ = -1.0;
+
   initMaps();
   current_ = true;
   has_been_reset_ = false;
@@ -185,6 +187,8 @@ void ObstacleLayer::laserScanCallback(const sensor_msgs::LaserScanConstPtr& mess
   //project the laser into a point cloud
   sensor_msgs::PointCloud2 cloud;
   cloud.header = message->header;
+
+  range_min_ = message->range_min;
 
   //project the scan into a point cloud
   try
@@ -459,9 +463,11 @@ void ObstacleLayer::raytraceFreespace(const Observation& clearing_observation, d
 
 
     // materna ------------------------------------------------------------
-    double range_min = 1.5;
+    double range_min = 0.0;
 
-    double al = atan2(y1-y0,x1-x0);
+    if (range_min_ > 0) range_min = range_min_;
+
+    //double al = atan2(y1-y0,x1-x0);
 
     double dx = 0;
     double dy = 0;

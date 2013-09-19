@@ -110,9 +110,13 @@ void Costmap2DPublisher::prepareGrid()
 
 void Costmap2DPublisher::publishCostmap()
 {
+  
+  prepareGrid();
+  costmap_pub_.publish( grid_ );
+  
   float resolution = costmap_->getResolution();
 
-  if (grid_.info.resolution != resolution || grid_.info.width != costmap_->getSizeInCellsX())
+  /*if (grid_.info.resolution != resolution || grid_.info.width != costmap_->getSizeInCellsX())
   {
     prepareGrid();
     costmap_pub_.publish( grid_ );
@@ -140,7 +144,7 @@ void Costmap2DPublisher::publishCostmap()
       }
     }
     costmap_update_pub_.publish(update);
-  }
+  }*/
 
   xn_ = yn_ = 0;
   x0_ = costmap_->getSizeInCellsX();

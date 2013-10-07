@@ -24,6 +24,9 @@ void ObstacleLayer::onInitialize()
   current_ = true;
   has_been_reset_ = false;
 
+  laser_min_range_ = 0;
+  nh.param("use_laser_min_range", use_laser_min_range_, false);
+
   global_frame_ = layered_costmap_->getGlobalFrameID();
   double transform_tolerance;
   nh.param("transform_tolerance", transform_tolerance, 0.2);
@@ -189,6 +192,8 @@ void ObstacleLayer::laserScanCallback(const sensor_msgs::LaserScanConstPtr& mess
   //project the laser into a point cloud
   sensor_msgs::PointCloud2 cloud;
   cloud.header = message->header;
+
+  laser_min_range_ = message->range_min;
 
   //project the scan into a point cloud
   try
@@ -461,10 +466,27 @@ void ObstacleLayer::raytraceFreespace(const Observation& clearing_observation, d
     if (!worldToMap(wx, wy, x1, y1))
       continue;
 
+    unsigned int x00 = x0;
+    unsigned int y00 = x0;
+
+    if (use_laser_min_range_) {
+
+    	// compute new origin for raytracing according to laser_min_range
+		// we are going to raytrace from laser_min_range distance from sensor origin
+		double al = atan2(wy - oy, wx - ox);
+
+		double oox = laser_min_range_ * cos(al) + ox;
+		double ooy = laser_min_range_ * sin(al) + oy;
+
+		if (!worldToMap(oox, ooy, x00, y00))
+			  continue;
+
+    }
+
     unsigned int cell_raytrace_range = cellDistance(clearing_observation.raytrace_range_);
     MarkCell marker(costmap_, FREE_SPACE);
     //and finally... we can execute our trace to clear obstacles along that line
-    raytraceLine(marker, x0, y0, x1, y1, cell_raytrace_range);
+    raytraceLine(marker, x00, y00, x1, y1, cell_raytrace_range);
 
     updateRaytraceBounds(ox, oy, wx, wy, clearing_observation.raytrace_range_, min_x, min_y, max_x, max_y);
   }

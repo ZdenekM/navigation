@@ -168,6 +168,9 @@ protected:
   bool has_been_reset_;
   double reset_min_x_, reset_max_x_, reset_min_y_, reset_max_y_;
 
+  bool use_laser_min_range_; ///< @brief enable for use of range_min
+  double laser_min_range_; ///< @brief range_min from LaserScan message
+
   FootprintLayer footprint_layer_; ///< @brief clears the footprint in this obstacle layer.
 
 private:
